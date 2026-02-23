@@ -1,22 +1,22 @@
 import { useState, useMemo } from 'react';
 
-// 파일 시스템의 실제 파일명 리스트입니다.
-const imageFiles = [
-  '컵.jpg',
-  '바지.jpg',
-  '포크.jpg',
-  '의자_아이.jpg',
-  '의자_어른.jpg',
-  '가방.jpg',
-  '텐트.jpg',
-  '신발.jpg',
-  '양말.jpg',
-  '인형.jpg',
-  '세탁기.jpg',
-  '체온계.png',
-  '냉장고.jpg',
-  '숟가락.jpg',
-  '젓가락.jpg'
+// 영문 파일명과 한글 이름을 매칭한 리스트입니다.
+const wordData = [
+  { name: '컵', file: 'cup.jpg' },
+  { name: '바지', file: 'pants.jpg' },
+  { name: '포크', file: 'fork.jpg' },
+  { name: '의자', file: 'chair_child.jpg' },
+  { name: '의자', file: 'chair_adult.jpg' },
+  { name: '가방', file: 'bag.jpg' },
+  { name: '텐트', file: 'tent.jpg' },
+  { name: '신발', file: 'shoes.jpg' },
+  { name: '양말', file: 'socks.jpg' },
+  { name: '인형', file: 'doll.jpg' },
+  { name: '세탁기', file: 'washer.jpg' },
+  { name: '체온계', file: 'thermometer.png' },
+  { name: '냉장고', file: 'fridge.jpg' },
+  { name: '숟가락', file: 'spoon.jpg' },
+  { name: '젓가락', file: 'chopsticks.jpg' }
 ];
 
 export default function App() {
@@ -26,16 +26,10 @@ export default function App() {
 
   // 셔플된 리스트 생성
   const shuffledList = useMemo(() => {
-    return [...imageFiles].sort(() => Math.random() - 0.5);
+    return [...wordData].sort(() => Math.random() - 0.5);
   }, []);
 
-  const currentFile = shuffledList[index];
-  
-  // 언더바(_) 앞부분을 단어 이름으로 추출
-  const displayName = useMemo(() => {
-    const baseName = currentFile.split('.')[0];
-    return baseName.split('_')[0];
-  }, [currentFile]);
+  const currentItem = shuffledList[index];
 
   const speak = (text: string) => {
     window.speechSynthesis.cancel();
@@ -48,12 +42,11 @@ export default function App() {
   };
 
   const handleClick = (e: React.MouseEvent) => {
-    // 버튼 클릭 시에는 카드 전환 로직 실행 안 함
     if ((e.target as HTMLElement).closest('button')) return;
 
     if (!showText) {
       setShowText(true);
-      speak(displayName);
+      speak(currentItem.name);
     } else {
       window.speechSynthesis.cancel();
       setShowText(false);
@@ -96,7 +89,6 @@ export default function App() {
         overflow: 'hidden'
       }}
     >
-      {/* 전체화면 버튼 */}
       <button 
         onClick={toggleFullScreen}
         style={{
@@ -116,7 +108,6 @@ export default function App() {
         {isFullscreen ? '창 모드' : '전체화면'}
       </button>
 
-      {/* 이미지 영역 (세로 모드 최적화) */}
       <div style={{
         flex: 1,
         display: 'flex',
@@ -126,9 +117,9 @@ export default function App() {
         marginTop: '40px'
       }}>
         <img 
-          src={`images/${currentFile}`} 
-          alt={displayName}
-          key={currentFile}
+          src={`images/${currentItem.file}`} 
+          alt={currentItem.name}
+          key={currentItem.file}
           style={{
             maxWidth: '100%',
             maxHeight: '65vh',
@@ -140,7 +131,6 @@ export default function App() {
         />
       </div>
 
-      {/* 텍스트 영역 */}
       <div style={{
         height: '25vh',
         display: 'flex',
@@ -150,14 +140,14 @@ export default function App() {
       }}>
         {showText && (
           <h1 style={{
-            fontSize: 'max(4rem, 15vw)', // 세로 모드에서 큰 글씨
+            fontSize: 'max(4rem, 15vw)',
             margin: 0,
             color: '#333',
             textAlign: 'center',
             wordBreak: 'keep-all',
             textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
           }}>
-            {displayName}
+            {currentItem.name}
           </h1>
         )}
       </div>
