@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 
 // 파일 시스템의 실제 파일명 리스트입니다.
 const imageFiles = [
