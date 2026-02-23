@@ -126,7 +126,7 @@ export default function App() {
         marginTop: '40px'
       }}>
         <img 
-          src={`/images/${currentFile}`} 
+          src={`${import.meta.env.BASE_URL}images/${currentFile}`} 
           alt={displayName}
           key={currentFile}
           style={{
