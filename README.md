@@ -16,7 +16,7 @@
 ## 🛠 기술 스택
 
 - **Frontend:** React 18, TypeScript, Vite
-- **Styling:** Vanilla CSS (Flexbox)
+- **Styling:** Inline Styles (Flexbox)
 - **Voice:** Web Speech API (Browser Native TTS)
 - **Deployment:** GitHub Pages & GitHub Actions (Auto CI/CD)
 
