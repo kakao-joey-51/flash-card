@@ -4,7 +4,7 @@
 
 ## 프로젝트 개요
 
-영유아용 한국어 낱말카드 웹 앱. 사물 이미지와 한글 단어를 보여주고 TTS로 발음을 들려준다. 모바일/태블릿에 최적화되어 있으며 전체화면 및 PWA를 지원한다.
+**옹알옹알** — 영유아용 한국어 낱말카드 웹 앱. 사물 이미지와 한글 단어를 보여주고 TTS로 발음을 들려준다. 모바일/태블릿에 최적화되어 있으며 전체화면 및 PWA를 지원한다.
 
 ## 명령어
 
@@ -20,6 +20,7 @@ Vite 기반 React 18 + TypeScript 단일 페이지 앱. 라우터나 상태관�
 - **단어 데이터**: `src/App.tsx`의 `wordData` 배열에 하드코딩. 각 항목은 `{ name: string, file: string }` 형태로 한글 단어와 `public/images/` 내 이미지 파일명을 매핑.
 - **인터랙션 흐름**: 2단계 클릭 — 첫 클릭 시 단어 표시 + Web Speech API TTS 발음, 두 번째 클릭 시 다음 카드로 이동.
 - **스타일링**: CSS 파일 없이 모두 인라인 스타일. 카드마다 파스텔 배경색이 순환.
+- **PWA**: `public/manifest.json` + `public/sw.js`로 구성. 아이콘은 `public/icon.svg`. Service Worker는 이미지 cache-first, 나머지 network-first 전략.
 - **배포**: GitHub Actions를 통한 GitHub Pages 배포. base URL은 `/flash-card/` (`vite.config.ts`에서 설정).
 
 ## 카드 추가 방법

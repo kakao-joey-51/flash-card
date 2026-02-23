@@ -1,6 +1,6 @@
-# 👶 20개월 낱말카드 (Toddler Flash Cards)
+# 👶 옹알옹알 (Toddler Flash Cards)
 
-20개월 전후의 영유아가 사물의 이름과 모양을 쉽고 재미있게 익힐 수 있도록 제작된 심플한 웹 애플리케이션입니다.
+영유아가 사물의 이름과 모양을 쉽고 재미있게 익힐 수 있도록 제작된 심플한 웹 애플리케이션입니다.
 
 👉 **[라이브 데모 보기](https://lifenjoy51.github.io/flash-card/)**
 
@@ -25,13 +25,16 @@
 ```text
 flash-card/
 ├── public/
-│   └── images/      # 최적화된 사물 이미지 (.jpg, .png)
+│   ├── images/       # 최적화된 사물 이미지 (.jpg, .png)
+│   ├── icon.svg      # PWA 앱 아이콘
+│   ├── manifest.json # PWA 매니페스트
+│   └── sw.js         # Service Worker (오프라인 캐싱)
 ├── src/
-│   ├── App.tsx      # 메인 앱 로직 및 데이터 관리
-│   └── main.tsx     # 진입점
+│   ├── App.tsx       # 메인 앱 로직 및 데이터 관리
+│   └── main.tsx      # 진입점
 ├── .github/
-│   └── workflows/   # GitHub Actions 자동 배포 설정
-└── tsconfig.json    # TypeScript 설정
+│   └── workflows/    # GitHub Actions 자동 배포 설정
+└── tsconfig.json     # TypeScript 설정
 ```
 
 ## 🚀 개발 및 배포

@@ -73,8 +73,8 @@ export default function App() {
     <div 
       onClick={handleClick}
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: '100dvw',
+        height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -89,24 +89,26 @@ export default function App() {
         overflow: 'hidden'
       }}
     >
-      <button 
-        onClick={toggleFullScreen}
-        style={{
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-          padding: '10px 15px',
-          borderRadius: '50px',
-          border: 'none',
-          backgroundColor: 'rgba(0,0,0,0.1)',
-          color: '#666',
-          fontSize: '0.9rem',
-          cursor: 'pointer',
-          zIndex: 10
-        }}
-      >
-        {isFullscreen ? '창 모드' : '전체화면'}
-      </button>
+      {document.fullscreenEnabled && (
+        <button
+          onClick={toggleFullScreen}
+          style={{
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
+            padding: '10px 15px',
+            borderRadius: '50px',
+            border: 'none',
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            color: '#666',
+            fontSize: '0.9rem',
+            cursor: 'pointer',
+            zIndex: 10
+          }}
+        >
+          {isFullscreen ? '창 모드' : '전체화면'}
+        </button>
+      )}
 
       <div style={{
         flex: 1,
@@ -122,7 +124,7 @@ export default function App() {
           key={currentItem.file}
           style={{
             maxWidth: '100%',
-            maxHeight: '65vh',
+            maxHeight: '65dvh',
             objectFit: 'contain',
             borderRadius: '24px',
             boxShadow: '0 8px 30px rgba(0,0,0,0.1)',
@@ -132,7 +134,7 @@ export default function App() {
       </div>
 
       <div style={{
-        height: '25vh',
+        height: '25dvh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
