@@ -29,12 +29,12 @@ Vite 기반 React 18 + TypeScript 단일 페이지 앱. 라우터나 상태관�
 
 ## Google Sheets 단어 관리
 
-`.env` 파일에 `APPS_SCRIPT_URL`과 `SPREADSHEET_ID`를 저장 (gitignore 됨). 시트명: `data`, 컬럼: `word`, `added_date`.
+`.env` 파일에 `APPS_SCRIPT_URL`과 `SPREADSHEET_ID`를 저장 (gitignore 됨). 시트명: `data`, 컬럼: `word`, `added` (TRUE/FALSE).
 
-- `added_date` 있음 → 이미지 파일 완료, 없음 → 단어만 등록됨
+- `added=TRUE` → 이미지 파일 완료 (코드에 등록됨), `added=FALSE` → 단어만 등록됨
 - **읽기**: `?action=read`
-- **추가**: `?action=append&word=단어` (한글은 `--data-urlencode` 사용, 중복 자동 방지)
-- **전체 동기화**: `?action=sync&items=JSON배열`
+- **추가**: `?action=append&word=단어` (URL 인코딩 필요, 중복 자동 방지, `added=FALSE`로 추가)
+- **전체 동기화**: `?action=sync&data=BASE64` — JSON 배열을 Base64 인코딩하여 전송. 코드 단어와 시트 단어의 **합집합**. 코드에 있는 단어는 `added=TRUE`, 시트에만 있는 단어는 기존 상태 유지. 양쪽 어디서도 단어가 삭제되지 않음.
 
 ## 이미지 생성
 

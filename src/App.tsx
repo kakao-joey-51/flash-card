@@ -1,37 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { wordData } from './data';
+import Gallery from './Gallery';
 
-// 영문 파일명과 한글 이름을 매칭한 리스트입니다.
-const wordData = [
-  { name: '컵', file: 'cup.jpg' },
-  { name: '바지', file: 'pants.jpg' },
-  { name: '포크', file: 'fork.jpg' },
-  { name: '의자', file: 'chair_child.jpg' },
-  { name: '의자', file: 'chair_adult.jpg' },
-  { name: '텐트', file: 'tent.jpg' },
-  { name: '신발', file: 'shoes.jpg' },
-  { name: '양말', file: 'socks.jpg' },
-  { name: '인형', file: 'doll.jpg' },
-  { name: '세탁기', file: 'washer.jpg' },
-  { name: '체온계', file: 'thermometer.jpg' },
-  { name: '냉장고', file: 'fridge.jpg' },
-  { name: '숟가락', file: 'spoon.jpg' },
-  { name: '젓가락', file: 'chopsticks.jpg' },
-  { name: '휴지', file: 'tissue.jpg' },
-  { name: '휴지', file: 'toilet_paper.jpg' },
-  { name: '우유', file: 'milk.jpg' },
-  { name: '티비', file: 'tv.jpg' },
-  { name: '놀이터', file: 'playground.jpg' },
-  { name: '자동차', file: 'car.jpg' },
-  { name: '로봇청소기', file: 'robot_vacuum.jpg' },
-  { name: '식빵', file: 'bread.jpg' },
-  { name: '딸기', file: 'strawberry.jpg' },
-  { name: '바나나', file: 'banana.jpg' },
-  { name: '귤', file: 'tangerine.jpg' },
-  { name: '밥', file: 'rice.jpg' },
-  { name: '사과', file: 'apple.jpg' }
-];
-
-export default function App() {
+function FlashCard() {
   const [index, setIndex] = useState(0);
   const [showText, setShowText] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -82,7 +53,7 @@ export default function App() {
   const bgColor = useMemo(() => bgColors[index % bgColors.length], [index]);
 
   return (
-    <div 
+    <div
       onClick={handleClick}
       style={{
         width: '100dvw',
@@ -101,6 +72,24 @@ export default function App() {
         overflow: 'hidden'
       }}
     >
+      <button
+        onClick={() => { window.location.hash = 'gallery'; }}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          padding: '10px 15px',
+          borderRadius: '50px',
+          border: 'none',
+          backgroundColor: 'rgba(0,0,0,0.1)',
+          color: '#666',
+          fontSize: '0.9rem',
+          cursor: 'pointer',
+          zIndex: 10,
+        }}
+      >
+        전체보기
+      </button>
       {document.fullscreenEnabled && (
         <button
           onClick={toggleFullScreen}
@@ -115,7 +104,7 @@ export default function App() {
             color: '#666',
             fontSize: '0.9rem',
             cursor: 'pointer',
-            zIndex: 10
+            zIndex: 10,
           }}
         >
           {isFullscreen ? '창 모드' : '전체화면'}
@@ -130,8 +119,8 @@ export default function App() {
         width: '100%',
         marginTop: '40px'
       }}>
-        <img 
-          src={`images/${currentItem.file}`} 
+        <img
+          src={`images/${currentItem.file}`}
           alt={currentItem.name}
           key={currentItem.file}
           style={{
@@ -165,7 +154,7 @@ export default function App() {
           </h1>
         )}
       </div>
-      
+
       {!showText && (
         <p style={{ color: '#aaa', fontSize: '1.2rem', position: 'absolute', bottom: '30px' }}>
           그림을 터치해 보세요!
@@ -173,4 +162,25 @@ export default function App() {
       )}
     </div>
   );
+}
+
+function getPage(): string {
+  const hash = window.location.hash.replace('#', '');
+  return hash || 'flashcard';
+}
+
+export default function App() {
+  const [page, setPage] = useState(getPage);
+
+  useEffect(() => {
+    const onHashChange = () => setPage(getPage());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  if (page === 'gallery') {
+    return <Gallery />;
+  }
+
+  return <FlashCard />;
 }
