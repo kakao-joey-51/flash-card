@@ -27,5 +27,6 @@ export const wordData = [
   { name: '귤', file: 'tangerine.jpg' },
   { name: '밥', file: 'rice.jpg' },
   { name: '사과', file: 'apple.jpg' },
-  { name: '안경', file: 'glasses.jpg' }
+  { name: '안경', file: 'glasses.jpg' },
+  { name: '노트북', file: 'laptop.jpg' }
 ];
